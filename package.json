@@ -1,0 +1,37 @@
+{
+  "name": "Evenementen.js",
+  "version": "1.0.0",
+  "description": "Project voor Web Services. API voor het beheren van informatie van evenementen",
+  "main": "src/index.js",
+  "author": "cody.van.hauwermeiren@student.hogent.be",
+  "license": "MIT",
+  "dependencies": {
+    "@koa/router": "^12.0.1",
+    "config": "^3.3.9",
+    "koa": "^2.14.2",
+    "koa-bodyparser": "^4.4.1"
+  },
+  "scripts": {
+    "start": "env-cmd nodemon"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "nodemon": "^3.0.1",
+    "winston": "^3.11.0"
+  },
+  "nodemonConfig": {
+    "signal": "SIGTERM",
+    "ignore": [
+      "node_modules/*",
+      ".vscode/*"
+    ],
+    "delay": "2000",
+    "watch": [
+      "config",
+      "src"
+    ],
+    "ext": "js,json",
+    "legacyWatch": true,
+    "exec": "node --inspect=0.0.0.0:9001 --trace-warnings src/index.js"
+  }
+}
