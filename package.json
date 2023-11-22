@@ -6,10 +6,15 @@
   "author": "cody.van.hauwermeiren@student.hogent.be",
   "license": "MIT",
   "dependencies": {
+    "@koa/cors": "^4.0.0",
     "@koa/router": "^12.0.1",
+    "@prisma/client": "^5.6.0",
     "config": "^3.3.9",
+    "fs": "^0.0.1-security",
     "koa": "^2.14.2",
-    "koa-bodyparser": "^4.4.1"
+    "koa-bodyparser": "^4.4.1",
+    "mysql2": "^3.6.3",
+    "path": "^0.12.7"
   },
   "scripts": {
     "start": "env-cmd nodemon"
@@ -17,6 +22,7 @@
   "devDependencies": {
     "env-cmd": "^10.1.0",
     "nodemon": "^3.0.1",
+    "prisma": "^5.6.0",
     "winston": "^3.11.0"
   },
   "nodemonConfig": {
@@ -25,7 +31,7 @@
       "node_modules/*",
       ".vscode/*"
     ],
-    "delay": "2000",
+    "delay": "200",
     "watch": [
       "config",
       "src"

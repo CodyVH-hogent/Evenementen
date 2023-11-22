@@ -1,57 +1,50 @@
 const Koa = require('koa');
-const winston = require('winston');
 const bodyParser = require('koa-bodyparser');
-const Router = require('@koa/router')
-const transactionService = require('./service/transactions')
+const installRest = require('./rest')
+const config = require('config');
+const {initializeLogger, getLogger} = require('./core/logging')
+const koaCors = require('@koa/cors')
 
+
+const NODE_ENV = config.get('env');
+const LOG_LEVEL = config.get('log.level');
+const LOG_DISABLED = config.get('log.disabled');
+
+const CORS_ORIGINS = config.get('cors.origins');
+const CORS_MAX_AGE = config.get('cors.maxAge');
 
 const app = new Koa();
-const router = new Router()
 
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.simple(),
-  transports: [
-    new winston.transports.Console()
-  ]
+
+initializeLogger({
+    level: LOG_LEVEL,
+    disabled: LOG_DISABLED,
+    defaultMeta: {
+        NODE_ENV,
+    },
 });
 
-// app.use(async (ctx, next) => {
-//   console.log('Request Body:', JSON.stringify(ctx.request.body));
-//   await next();
-// });
-
-
+app.use(
+    koaCors({
+        origin: (ctx) => {
+            if (CORS_ORIGINS.indexOf(ctx.request.header.origin) !== -1) {
+                return ctx.request.header.origin;
+            }
+            // Not a valid domain at this point, let's return the first valid as we should return a string
+            return CORS_ORIGINS[0];
+        },
+        allowHeaders: ['Accept', 'Content-Type', 'Authorization'],
+        maxAge: CORS_MAX_AGE,
+    })
+);
 
 app.use(bodyParser());
 
-router.get('/api/events',async(ctx)=>{
-  ctx.body = transactionService.getAllEvent()
-})
-
-router.post('/api/events',async(ctx) =>{
-  const newTransaction = transactionService.createEvent({
-  ...ctx.request.body,
-  place: ctx.request.body.place,
-  name: ctx.request.body.name,
-  date: ctx.request.body.date,
-  timeStart: ctx.request.body.timeStart,
-  timeEnd: ctx.request.body.timeEnd,
-  description: ctx.request.body.description
-  });
-  ctx.body = newTransaction
-})
-
-router.get('/api/events/:id', async (ctx) => {
-  ctx.body = transactionService.getEventById(Number(ctx.params.id));
-});
-
-
-
-
-app.use(router.routes())
-app.use(router.allowedMethods())
+installRest(app)
 
 app.listen(9000, () => {
-  logger.info('🚀 Server listening on http://localhost:9000');
-});
+    getLogger().info('🚀 Server listening on http://localhost:9000');
+})
+
+
+
