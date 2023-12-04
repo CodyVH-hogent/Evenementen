@@ -11,9 +11,9 @@ model Event {
   id          Int    @id @default(autoincrement())
   name        String @db.VarChar(255)
   place       String @db.VarChar(255)
-  // date        DateTime @db.Date()
-  // time_start  DateTime @db.Time()
-  // time_end    DateTime @db.Time()
+  date        DateTime @db.Date()
+  time_start  DateTime @db.Time()
+  time_end    DateTime @db.Time()
   description String @db.VarChar(255)
 }
 

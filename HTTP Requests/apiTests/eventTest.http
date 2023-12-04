@@ -1,0 +1,66 @@
+
+# @name Post existing event
+# @no-log
+POST http://localhost:9000/api/events
+Content-Type: application/json
+
+{
+  "name":"hihihi new event",
+  "place": "some place",
+  "date": "2023-09-01",
+  "time_start": "12:11:15",
+  "time_end": "12:12:42",
+  "description": "blablabla"
+}
+###
+
+# @name Post new event
+# @no-log
+POST http://localhost:9000/api/events
+Content-Type: application/json
+
+{
+  "name":"hihihi new event",
+  "place": "some place",
+  "date": "2023-09-01",
+  "time_start": "12:11:15",
+  "time_end": "12:12:42",
+  "description": "blablabla"
+}
+###
+
+# @name Update an existing event by id
+# @no-log
+PATCH http://localhost:9000/api/events/7
+Content-Type: application/json
+
+{
+  "name":"hihihi new event",
+  "place": "some place",
+  "date": "2023-09-01",
+  "time_start": "12:11:15",
+  "time_end": "12:12:42",
+  "description": "pppppppppppppppppppppp"
+}
+###
+
+
+# @name Get all events
+# @no-log
+GET http://localhost:9000/api/events
+###
+
+# @name Get event by id
+# @no-log
+GET http://localhost:9000/api/events/39
+###
+
+# @name Delete event by id
+# @no-log
+DELETE http://localhost:9000/api/events/6
+###
+
+# @name Delete all events
+# @no-log
+DELETE http://localhost:9000/api/events
+###

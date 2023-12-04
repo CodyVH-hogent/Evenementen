@@ -1,0 +1,32 @@
+# @name Post existing place
+# @no-log
+POST http://localhost:9000/api/places
+Content-Type: application/json
+
+{
+  "name":"new place"
+}
+###"street": "some street",
+###"postal_code": "6969",
+###"province": "some province",
+###"country": "some country"
+###
+
+# @name Post new place
+# @no-log
+POST http://localhost:9000/api/places
+Content-Type: application/json
+
+{
+  "name": "new place",
+  "street": "some street",
+  "postal_code": "6969",
+  "province": "some province",
+  "country": "some country"
+}
+###
+
+# @name Get all places
+# @no-log
+GET http://localhost:9000/api/places
+###

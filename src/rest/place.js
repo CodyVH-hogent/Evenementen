@@ -1,43 +1,63 @@
 const Router = require('@koa/router');
 const placeService = require('../service/place');
-// const {EVENTS: Event} = require("../data/mock_data");
 
 const getAllPlaces = async (ctx) => {
-    ctx.body = await placeService.getAllEvents()
+    ctx.body = await placeService.getAll()
 };
 
 const createPlace = async (ctx) => {
-    const newEvent = await placeService.createEvent({
+    const newPlace = await placeService.create({
         ...ctx.request.body,
-        place: ctx.request.body.place,
-        name: ctx.request.body.name,
-        date: ctx.request.body.date,
-        timeStart: ctx.request.body.timeStart,
-        timeEnd: ctx.request.body.timeEnd,
-        description: ctx.request.body.description
+        place: ctx.request.body.name,
+        name: ctx.request.body.street,
+        date: ctx.request.body.postal_code,
+        timeStart: ctx.request.body.province,
+        timeEnd: ctx.request.body.country,
     });
-    ctx.body = newEvent
+    ctx.body = newPlace
 };
 
-const getEventById = async (ctx) => {
-    ctx.body = placeService.getEventById(Number(ctx.params.id));
+const getPlaceById = async (ctx) => {
+    ctx.body = placeService.getById(Number(ctx.params.id));
 };
 
+const updatePlaceById = async (ctx) => {
+    ctx.body = placeService.updateById({
+        ...ctx.request.body,
+        id: Number(ctx.params.id),
+        name: ctx.request.body.name,
+        street: ctx.request.body.street,
+        postal_code: ctx.request.body.postal_code,
+        province: ctx.request.body.province,
+        country: ctx.request.body.country,
+    });
+};
+
+const deletePlaceById = async (ctx) => {
+    ctx.body = placeService.deleteById(Number(ctx.params.id));
+};
+
+const deleteAllPlaces = async (ctx) => {
+    ctx.body = placeService.deleteAll(Number(ctx.params.id));
+};
 
 
 /**
- * Install event routes in the given router.
+ * Install place routes in the given router.
  *
  * @param {Router} app - The parent router.
  */
 module.exports = (app) => {
     const router = new Router({
-        prefix: '/events',
+        prefix: '/place',
     });
 
     router.get('/', getAllPlaces);
     router.post('/', createPlace);
-    router.get('/:id', getEventById);
+    router.get('/:id', getPlaceById);
+    router.patch('/:id', updatePlaceById);
+    router.delete('/:id', deletePlaceById);
+    router.delete('/', deleteAllPlaces);
 
     app.use(router.routes())
         .use(router.allowedMethods());

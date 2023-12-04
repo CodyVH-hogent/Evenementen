@@ -1,0 +1,9 @@
+# @name Health version
+# @no-log
+GET http://localhost:9000/api/health/version
+###
+
+# @name health ping
+# @no-log
+GET http://localhost:9000/api/health/ping
+###
