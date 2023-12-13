@@ -20,7 +20,7 @@ const getById = async (id) => {
     return event
 };
 
-const createEvent = async ({place, name, date, time_start, time_end, description}) => {
+const create = async ({place, name, date, time_start, time_end, description}) => {
     // if (!await prisma.place.findFirst({
     //         where: {
     //             "name": place
@@ -139,7 +139,7 @@ function extractDateAndTimes(date, time_start, time_end) {
 module.exports = {
     getAll,
     getById,
-    createEvent,
+    create,
     updateById,
     deleteById,
     deleteAll,

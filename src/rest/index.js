@@ -1,9 +1,9 @@
 const Router = require('@koa/router');
 const installEventRouter = require('./event');
 // const installTicketRouter = require('./Ticket');
-// const installPersonRouter = require('./Person');
-const installPlaceRouter = require('./Place');
-const installHealthRouter = require('./Health');
+const installPersonRouter = require('./person');
+const installPlaceRouter = require('./place');
+const installHealthRouter = require('./health');
 
 /**
  * Install all routes in the given Koa application.
@@ -16,7 +16,7 @@ module.exports = (app) => {
     });
     installEventRouter(router);
     // installTicketRouter(router);
-    // installPersonRouter(router);
+    installPersonRouter(router);
     installPlaceRouter(router);
     installHealthRouter(router);
 

@@ -4,7 +4,7 @@ const Joi = require("joi");
 const validate = require("../core/validation")
 
 const getAllEvents = async (ctx) => {
-    ctx.body = await eventService.getAllEvents()
+    ctx.body = await eventService.getAll()
 };
 
 const getEventById = async (ctx) => {
@@ -12,7 +12,7 @@ const getEventById = async (ctx) => {
 };
 
 const createEvent = async (ctx) => {
-    const newEvent = await eventService.createEvent({
+    const newEvent = await eventService.create({
         ...ctx.request.body,
         place: ctx.request.body.place,
         name: ctx.request.body.name,
@@ -79,10 +79,10 @@ module.exports = (app) => {
     //todo: VALIDATION
     router.get('/', getAllEvents);
     router.post('/', createEvent); // validate(createEvent.validationScheme),
-    router.get('/:id', validate(getEventById.validationScheme), getEventById),
-        router.patch('/:id', updateEventById),
-        router.delete('/:id', deleteEventById),
-        router.delete('/', deleteAllEvents);
+    router.get('/:id', validate(getEventById.validationScheme), getEventById);
+    router.patch('/:id', updateEventById);
+    router.delete('/:id', deleteEventById);
+    router.delete('/', deleteAllEvents);
 
     app.use(router.routes())
         .use(router.allowedMethods());

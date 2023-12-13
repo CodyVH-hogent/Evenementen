@@ -49,12 +49,12 @@ module.exports = (app) => {
     });
 
     //todo: VALIDATION
-    router.get('/', getAllPersons());
-    router.post('/', createPerson()); // validate(createPerson.validationScheme),
-    router.get('/:id', getPersonById()), //validate(getPersonById().validationScheme),
-        router.patch('/:id', updatePersonById()),
-        router.delete('/:id', deletePersonById()),
-        router.delete('/', deleteAllPersons());
+    router.get('/', getAllPersons);
+    router.post('/', createPerson); // validate(createPerson.validationScheme),
+    router.get('/:id', getPersonById); //validate(getPersonById().validationScheme),
+    router.patch('/:id', updatePersonById);
+    router.delete('/:id', deletePersonById);
+    router.delete('/', deleteAllPersons);
 
     app.use(router.routes())
         .use(router.allowedMethods());
