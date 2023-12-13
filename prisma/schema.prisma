@@ -8,13 +8,14 @@ datasource db {
 }
 
 model Event {
-  id          Int    @id @default(autoincrement())
-  name        String @db.VarChar(255)
-  place       String @db.VarChar(255)
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(255)
+  place       Place    @relation(fields: [id], references: [id])
   date        DateTime @db.Date()
   time_start  DateTime @db.Time()
   time_end    DateTime @db.Time()
-  description String @db.VarChar(255)
+  description String   @db.VarChar(255)
+  tickets     Ticket[]
 }
 
 model Place {
@@ -24,16 +25,20 @@ model Place {
   postal_code Int    @db.Int
   province    String @db.VarChar(255)
   country     String @db.VarChar(255)
+  event       Event?
 }
 
 model Person {
-  id         Int    @id @default(autoincrement())
-  first_name String @db.VarChar(255)
-  last_name  String @db.VarChar(255)
+  id         Int      @id @default(autoincrement())
+  first_name String   @db.VarChar(255)
+  last_name  String   @db.VarChar(255)
+  tickets    Ticket[]
 }
 
 model Ticket {
   id            Int      @id @default(autoincrement())
   purchase_date DateTime @db.Date
   purchase_time DateTime @db.Time()
+  event         Event    @relation(fields: [id], references: [id], map: "eventTickets")
+  person        Person   @relation(fields: [id], references: [id], map: "personTickets")
 }
