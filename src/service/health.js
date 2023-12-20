@@ -1,14 +1,21 @@
-const packageJson = require('../../package.json')
+const packageJson = require('../../package.json');
 
-const ping = ()=>({pong:true})
+/**
+ * Check if the server is healthy. Can be extended
+ * with database connection check, etc.
+ */
+const ping = () => ({ pong: true });
 
+/**
+ * Get the running server's information.
+ */
 const getVersion = () => ({
-    env: process.env.NODE_ENV,
-    version: packageJson.version,
-    name: packageJson.name,
+  env: process.env.NODE_ENV,
+  version: packageJson.version,
+  name: packageJson.name,
 });
 
 module.exports = {
-    ping,
-    getVersion,
+  ping,
+  getVersion,
 };

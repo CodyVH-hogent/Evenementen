@@ -1,9 +1,9 @@
 const Router = require('@koa/router');
-const installEventRouter = require('./event');
-// const installTicketRouter = require('./Ticket');
 const installPersonRouter = require('./person');
-const installPlaceRouter = require('./place');
 const installHealthRouter = require('./health');
+const installPlaceRouter = require('./place');
+const installEventRouter = require('./event');
+const installTicketRouter = require('./ticket');
 
 /**
  * Install all routes in the given Koa application.
@@ -14,11 +14,12 @@ module.exports = (app) => {
     const router = new Router({
         prefix: '/api',
     });
-    installEventRouter(router);
-    // installTicketRouter(router);
+
     installPersonRouter(router);
-    installPlaceRouter(router);
     installHealthRouter(router);
+    installPlaceRouter(router);
+    installEventRouter(router);
+    installTicketRouter(router);
 
     app.use(router.routes())
         .use(router.allowedMethods());

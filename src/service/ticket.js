@@ -1,78 +1,83 @@
-const {PrismaClient} = require('@prisma/client')
-const prisma = new PrismaClient()
+const prisma = require("../../prisma/prisma_init");
+const ServiceError = require('../core/serviceError');
+const handleDBError = require('./_handleDBError');
 
-const getAll = async function () {
-    const tickets = await prisma.ticket.findMany()
+const getAll = async () => {
+    const tickets = await prisma.ticket.findMany({});
     return {
-        tickets,
-        count: tickets.length
-    }
-}
-const getById = async function (id) {
-    const ticket = await prisma.ticket.findFirst({
-        where: {id: id}
-    })
-    return ticket
-}
-const create = async function ({purchase_date, purchase_time}) {
-    let {date, time} = extractDateAndTimes(purchase_date, purchase_time)
-    const newTicket = await prisma.ticket.create({
-        data: {
-            purchase_date: date,
-            purchase_time: time
-        },
-    })
-    return (newTicket)
-}
-const updateById = async function ({id, purchase_date, purchase_time}) {
-    let {date, time} = extractDateAndTimes(purchase_date, purchase_time)
-    const newTicket = await prisma.ticket.update({
-        where: {
-            id: id
-        },
-        data: {
-            purchase_date: date,
-            purchase_time: time
-        },
-    }).catch(error => {
-        if (error.code === "P2025") {
-            console.log("Id %d is not recognised", id)
-            // console.log(error.meta)
-            //todo: fox log
-        } else {
-            console.log(error)
-        }
-    })
-    return (newTicket)
-}
-const deleteById = async function (id) {
-    const deleteTicket = await prisma.ticket.delete({
-        where: {
-            id: id
-        },
-    }).catch(error => {
-            if (error.code === "P2025") {
-                console.log("Id %d is not recognised", id)
-                // console.log(error.meta)
-                //todo: fox log
-            } else {
-                console.log(error)
-            }
-        }
-    )
-    return (deleteTicket)
-}
-const deleteAll = async function () {
-    const deleteTicket = await prisma.ticket.deleteMany({})
-    return deleteTicket
-}
+        items: tickets,
+        count: tickets.length,
+    };
+};
 
-function extractDateAndTimes(date, time) {
-    let tmp_date = new Date(date)
-    let [hours, minutes, seconds] = time.split(":");
-    let tmp_time = new Date(0, 0, 0, Number(hours), Number(minutes), Number(seconds));
-    return {tmp_date, tmp_time};
-}
+const getById = async (id) => {
+    const ticket = await prisma.ticket.findFirst({
+        where: {
+            id: id,
+        },
+    });
+
+    if (!ticket) {
+        throw ServiceError.notFound(`No ticket with id ${id} exists`, { id });
+    }
+
+    return ticket;
+};
+
+const create = async ({ purchase_date,event_id }) => {
+    try {
+        const ticket = await prisma.ticket.create({
+            data: {
+                purchase_date: purchase_date,
+                event_id: event_id
+            },
+        });
+        return ticket;
+    } catch (error) {
+        throw handleDBError(error);
+    }
+};
+
+const updateById = async (id, { purchase_date, purchase_time }) => {
+    try {
+        await prisma.ticket.update({
+            where: {
+                id: id,
+            },
+            data: {
+                purchase_date: purchase_date,
+                purchase_time: purchase_time,
+            },
+        });
+        return getById(id);
+    } catch (error) {
+        throw handleDBError(error);
+    }
+};
+
+const deleteById = async (id) => {
+    try {
+        const deleted = await prisma.ticket.delete({
+            where: {
+                id: Number(id),
+            },
+        });
+
+        if (!deleted) {
+            throw ServiceError.notFound(`No ticket with id ${id} exists`, { id });
+        }
+    } catch (error) {
+        throw handleDBError(error);
+    }
+};
+
+const deleteAll = async () => {
+    try {
+        await prisma.ticket.deleteMany({});
+    } catch (error) {
+        throw handleDBError(error);
+    }
+};
 
 module.exports = {
     getAll,
@@ -80,5 +85,5 @@ module.exports = {
     create,
     updateById,
     deleteById,
-    deleteAll,
-}
+    deleteAll
+};

@@ -7,38 +7,42 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Event {
+model event {
   id          Int      @id @default(autoincrement())
   name        String   @db.VarChar(255)
-  place       Place    @relation(fields: [id], references: [id])
-  date        DateTime @db.Date()
-  time_start  DateTime @db.Time()
-  time_end    DateTime @db.Time()
   description String   @db.VarChar(255)
-  tickets     Ticket[]
+  end         DateTime @db.DateTime(0)
+  start       DateTime @db.DateTime(0)
+  placeId     Int      @db.Int
+  place       place    @relation(fields: [placeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tickets     ticket[]
 }
 
-model Place {
-  id          Int    @id @default(autoincrement())
-  name        String @db.VarChar(255)
-  street      String @db.VarChar(255)
-  postal_code Int    @db.Int
-  province    String @db.VarChar(255)
-  country     String @db.VarChar(255)
-  event       Event?
-}
-
-model Person {
-  id         Int      @id @default(autoincrement())
-  first_name String   @db.VarChar(255)
-  last_name  String   @db.VarChar(255)
-  tickets    Ticket[]
-}
-
-model Ticket {
+model person {
   id            Int      @id @default(autoincrement())
-  purchase_date DateTime @db.Date
-  purchase_time DateTime @db.Time()
-  event         Event    @relation(fields: [id], references: [id], map: "eventTickets")
-  person        Person   @relation(fields: [id], references: [id], map: "personTickets")
+  first_name    String   @db.VarChar(255)
+  last_name     String   @db.VarChar(255)
+  email         String   @unique @db.VarChar(255)
+  tickets       ticket[]
+  password_hash String   @db.VarChar(255)
+  roles         Json     @db.Json
+}
+
+model place {
+  id          Int     @id @default(autoincrement())
+  name        String  @db.VarChar(255)
+  street      String  @db.VarChar(255)
+  postal_code Int     @db.Int
+  province    String  @db.VarChar(255)
+  country     String  @db.VarChar(255)
+  events      event[]
+}
+
+model ticket {
+  id            Int      @id @default(autoincrement())
+  purchase_date DateTime @db.DateTime(0)
+  event_id       Int?      @db.Int
+  person_id      Int?     @db.Int
+  event         event?    @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  person        person?  @relation(fields: [person_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }

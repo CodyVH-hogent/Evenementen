@@ -1,0 +1,63 @@
+
+# @name Login
+# @no-log
+POST http://localhost:9000/api/persons/login
+Content-Type: application/json
+
+{
+  "email": "email1",
+  "password": "pass1"
+}
+
+###
+
+# @name get all persons
+# @no-log
+POST http://localhost:9000/api/persons/
+Content-Type: application/json
+
+{
+  "email": "email1"
+}
+
+###
+
+# @name Delete all persons
+# @no-log
+DELETE http://localhost:9000/api/persons
+#Accept: application/json
+###
+
+# @name Delete person by id
+# @no-log
+DELETE http://localhost:9000/api/persons/23
+#Accept: application/json
+###
+
+# @name Post new person
+# @no-log
+POST http://localhost:9000/api/persons
+Content-Type: application/json
+
+{
+  "first_name": "An",
+  "last_name": "Van den Abbeel",
+  "email": "d"
+}
+
+###
+
+# @name Get all persons
+# @no-log
+GET http://localhost:9000/api/persons
+Accept: application/json
+
+
+###
+# @name Get person by id
+# @no-log
+GET http://localhost:9000/api/persons/3
+Accept: application/json
+
+###
+

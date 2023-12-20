@@ -1,0 +1,9 @@
+# @no-log
+POST http://localhost:9000/api/tickets
+Content-Type: application/json
+
+{
+  "purchase_date": "2023-12-18 20:33:55"
+}
+
+###
