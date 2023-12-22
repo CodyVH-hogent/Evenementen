@@ -10,9 +10,12 @@ module.exports = {
   },
   database: {
     client: 'mysql2',
-    host: 'localhost',
-    port: 3306,
-    name: 'root',
+    host: 'vichogent.be',
+    port: 40043,
+    name: "293731cv",
+    username: "293731cv",
+    password:"rBXvkVevavEqLSsOJMNn",
+    url: 'mysql://root:root@localhost:3306/'
   },
   auth: {
     argon: {
