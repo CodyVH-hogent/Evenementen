@@ -15,7 +15,7 @@ module.exports = {
     name: "293731cv",
     username: "293731cv",
     password:"rBXvkVevavEqLSsOJMNn",
-    url: 'mysql://root:root@localhost:3306/'
+    url: 'mysql://293731cv:rBXvkVevavEqLSsOJMNn@vichogent.be:40043/'
   },
   auth: {
     argon: {
