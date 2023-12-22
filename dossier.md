@@ -1,17 +1,11 @@
-# Voornaam Familienaam (Studentennummer)
-
-> Duid aan welke vakken je volgt en vermeld voor deze vakken de link naar jouw GitHub repository. In het geval je
-> slechts één vak volgt, verwijder alle inhoud omtrent het andere vak uit dit document.
-> Lees <https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet> om te weten hoe een Markdown-bestand opgemaakt
-> moet worden.
-> Verwijder alle instructies (lijnen die starten met >).
+# Cody Van Hauwermeiren (293731cv)
 
 - [ ] Front-end Web Development
     - <GITHUB_REPO_LINK_HIER>
     - <LINK_ONLINE_VERSIE_HIER>
-- [ ] Web Services:
-    - <GITHUB_REPO_LINK_HIER>
-    - <LINK_ONLINE_VERSIE_HIER>
+- [x] Web Services:
+    - <https://github.com/CodyVH-hogent/Evenementen.git>
+    - <https://webservices-evenementen.onrender.com>
 
 **Logingegevens**
 
@@ -122,9 +116,8 @@ verder).
 
 ### Web Services
 
-> Hoe heb je jouw applicatie gestructureerd (mappen, design patterns...)?
 ![img_2.png](images/folder_structure_root.png)
-> Ik heb in het algemeen de structuur gevolgd die beschreven stond in de cursus, maar heb enkele zaken aangepast:
+Ik heb in het algemeen de structuur gevolgd die beschreven stond in de cursus, maar heb enkele zaken aangepast:
 
 - data
     - Ik heb ervoor gekozen geen data folder aan te maken en al deze logica aan de prisma folder bij te voegen

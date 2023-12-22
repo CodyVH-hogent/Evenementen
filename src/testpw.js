@@ -1,7 +1,7 @@
 const { hashPassword, verifyPassword } = require('./core/password');
 
 async function main() {
-    const password = 'pass1';
+    const password = 'wachtwoordUser';
     const wrongPassword = 'verywrong';
     console.log('The password:', password);
 

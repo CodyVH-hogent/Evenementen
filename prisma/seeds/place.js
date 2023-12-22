@@ -15,7 +15,6 @@ module.exports = {
                     postal_code: 1111,
                     province: "Sunnydale",
                     country: "Sunland",
-                    // events: [1]
                 }, {
                     id: 2,
                     name: "Moonlight Plaza",
@@ -23,7 +22,6 @@ module.exports = {
                     postal_code: 2222,
                     province: "Moonville",
                     country: "Starland",
-                    // events: [2]
                 }, {
                     id: 3,
                     name: "Stardust Hall",
@@ -31,7 +29,6 @@ module.exports = {
                     postal_code: 3333,
                     province: "Cosmopolis",
                     country: "Galaxia",
-                    // events: [3]
                 }]
             });
         } catch (error) {
