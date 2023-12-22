@@ -15,6 +15,7 @@ module.exports = {
     name: 'events',
     username: 'root',
     password: 'root',
+    url: 'mysql://root:root@localhost:3306/'
   },
   auth: {
     argon: {
@@ -25,7 +26,7 @@ module.exports = {
     },
     jwt: {
       secret: 'eenveeltemoeilijksecretdatniemandooitzalradenandersisdesitegehacked',
-      expirationInterval: 60 * 60 * 1000*10,//10u
+      expirationInterval: 60 * 60 * 1000*1,//1u
       issuer: 'events.cody.be',
       audience: 'events.cody.be',
     },

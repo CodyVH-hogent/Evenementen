@@ -1,12 +1,12 @@
-const prisma = require("../../prisma/prisma_init")
-
 const ServiceError = require('../core/serviceError');
 const handleDBError = require('./_handleDBError');
+const {getPrisma} = require("../../prisma");
 
 /**
  * Get all events.
  */
 const getAll = async () => {
+    const prisma = getPrisma()
     const items = await prisma.event.findMany({});
     return {
         items,
@@ -16,6 +16,7 @@ const getAll = async () => {
 
 
 const getById = async (id) => {
+    const prisma = getPrisma()
     const event = await prisma.event.findFirst({
         where: {
             id: id,
@@ -34,20 +35,20 @@ const getById = async (id) => {
  * @param {object} event - event to save.
  * @param {string} [event.name] - Name of the event.
  */
-const create = async ({place, name, date, time_start, time_end, description}) => {
+const create = async ({place_id, start,name, end, description}) => {
+    const prisma = getPrisma()
     // todo: wanneer eerst checken of een place bestaat, anders geen event aanmaken
 
     // todo: checken of deze fucntie de tijd en datum correct extracten
-    let {tmp_date, tmp_time_start, tmp_time_end} = extractDateAndTimes(date, time_start, time_end);
+    // let {tmp_date, tmp_time_start, tmp_time_end} = extractDateAndTimes(date, time_start, time_end);
 
     try {
         const event = await prisma.event.create({
             data: {
-                place: place,
+                place_id: place_id,
                 name: name,
-                date: date,
-                time_start: tmp_time_start,
-                time_end: tmp_time_end,
+                start: start,
+                end: end,
                 description: description
             },
         });
@@ -64,9 +65,10 @@ const create = async ({place, name, date, time_start, time_end, description}) =>
  * @param {object} event - event to save.
  * @param {string} [event.name] - Name of the event.
  */
-const updateById = async ({id, place, name, date, time_start, time_end, description}) => {
+const updateById = async ({id, place_id, name,start,end, description}) => {
+    const prisma = getPrisma()
 
-    let {tmp_date, tmp_time_start, tmp_time_end} = extractDateAndTimes(date, time_start, time_end);
+    // let {tmp_date, tmp_time_start, tmp_time_end} = extractDateAndTimes(date, time_start, time_end);
 
     try {
         const event = await prisma.event.update({
@@ -74,11 +76,10 @@ const updateById = async ({id, place, name, date, time_start, time_end, descript
                 id: id
             },
             data: {
-                place: place,
+                place: place_id,
                 name: name,
-                date: tmp_date,
-                time_start: tmp_time_start,
-                time_end: tmp_time_end,
+                start: start,
+                end: end,
                 description: description
             },
         });
@@ -94,6 +95,7 @@ const updateById = async ({id, place, name, date, time_start, time_end, descript
  * @param {number} id - Id of the event to delete.
  */
 const deleteById = async (id) => {
+    const prisma = getPrisma()
     try {
         const event = await prisma.event.delete({
             where: {
@@ -110,6 +112,7 @@ const deleteById = async (id) => {
 };
 
 const deleteAll = async () => {
+    const prisma = getPrisma()
     try {
         await prisma.event.deleteMany({});
     } catch (error) {

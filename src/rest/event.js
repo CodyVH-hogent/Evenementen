@@ -24,11 +24,10 @@ getEventById.validationScheme = {
 const createEvent = async (ctx) => {
     const event = await eventService.create({
         ...ctx.request.body,
-        place: ctx.request.body.place,
+        place_id: ctx.request.body.place_id,
         name: ctx.request.body.name,
-        date: ctx.request.body.date,
-        time_start: ctx.request.body.time_start,
-        time_end: ctx.request.body.time_end,
+        start: ctx.request.body.start,
+        end: ctx.request.body.end,
         description: ctx.request.body.description
     })//todo: tickets moeten nog worden toegevoegd kunnen worden, rare zin, deal with it okay?
     ctx.status = 200;
@@ -36,11 +35,12 @@ const createEvent = async (ctx) => {
 };
 createEvent.validationScheme = {
     body: {
-        place: Joi.string().max(255),
+        place_id: Joi.number().integer().positive(),
         name: Joi.string().max(255),
-        date: Joi.date(),
-        time_start: Joi.string().regex(/([0-9]{2})\:([0-9]{2}):([0-9]{2})/),//todo: werkt dit? Hoe is dit geformatteerd (en ook de datum hihi)
-        time_end: Joi.string().regex(/([0-9]{2})\:([0-9]{2}):([0-9]{2})/),
+        // start: Joi.string().regex(/([0-9]{2})\:([0-9]{2}):([0-9]{2})/),//todo: werkt dit? Hoe is dit geformatteerd (en ook de datum hihi)
+        start: Joi.any(),//todo: werkt dit? Hoe is dit geformatteerd (en ook de datum hihi)
+        // end: Joi.string().regex(/([0-9]{2})\:([0-9]{2}):([0-9]{2})/),
+        end: Joi.any(),
         description: Joi.string().max(255),
     },
 };

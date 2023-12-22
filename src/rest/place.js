@@ -93,7 +93,7 @@ module.exports = (app) => {
         prefix: '/places',
     });
 
-    router.use(requireAuthentication)
+    // router.use(requireAuthentication)
     const requireAdmin = makeRequireRole(Role.ADMIN);
 
     router.get('/',

@@ -1,9 +1,10 @@
-const prisma = require("../../prisma/prisma_init")
 
 const ServiceError = require('../core/serviceError');
 const handleDBError = require('./_handleDBError');
+const {getPrisma} = require("../../prisma");
 
 const getAll = async () => {
+    prisma = getPrisma()
     const places = await prisma.place.findMany({});
     return {
         items: places,
@@ -12,6 +13,7 @@ const getAll = async () => {
 };
 
 const getById = async (id) => {
+    prisma = getPrisma()
     const place = await prisma.place.findFirst({
         where: {
             id: id,
@@ -24,6 +26,7 @@ const getById = async (id) => {
 };
 
 const create = async ({name, street, postal_code, province, country}) => {
+    prisma = getPrisma()
     try {
         const place = await prisma.place.create({
             data: {
@@ -41,6 +44,7 @@ const create = async ({name, street, postal_code, province, country}) => {
 };
 
 const updateById = async (id, name, street, postal_code, province, country) => {
+    prisma = getPrisma()
     try {
         await prisma.place.update({
             where: {
@@ -61,6 +65,7 @@ const updateById = async (id, name, street, postal_code, province, country) => {
 };
 
 const deleteById = async (id) => {
+    prisma = getPrisma()
     try {
         const deleted = await prisma.place.delete({
             where: {
@@ -77,6 +82,7 @@ const deleteById = async (id) => {
 };
 
 const deleteAll = async () => {
+    prisma = getPrisma()
     try {
         await prisma.place.deleteMany({});
     } catch (error) {

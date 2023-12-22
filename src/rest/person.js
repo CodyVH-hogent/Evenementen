@@ -33,7 +33,7 @@ login.validationScheme = {
     body: Joi.object({
         email: Joi.string().max(255),
         password: Joi.string().max(255),
-    }),
+    })
 };
 
 const registerPerson = async (ctx) => {
@@ -43,8 +43,7 @@ const registerPerson = async (ctx) => {
         last_name: ctx.request.body.last_name,
         email: ctx.request.body.email,
         tickets: ctx.request.body.tickets,
-        password: ctx.request.body.password,
-        roles: ctx.request.body.roles
+        password: ctx.request.body.password
     });
     ctx.status = 201;
     ctx.body = person;
@@ -54,9 +53,8 @@ registerPerson.validationScheme = {
         first_name: Joi.string().max(255),
         last_name: Joi.string().max(255),
         email: Joi.string().max(255),
-        tickets: Joi.array().items(Joi.number().integer().positive()),
+        tickets: Joi.optional(),
         password: Joi.string().max(255),
-        roles: Joi.array().items(Joi.string().max(255)),
     },
 };
 
@@ -69,6 +67,7 @@ const updatePerson = async (ctx) => {
         last_name: ctx.request.body.last_name,
         email: ctx.request.body.email,
         password: ctx.request.body.password,
+        tickets: ctx.request.body.tickets,
     });
     ctx.status = 200
     ctx.body = person
@@ -82,12 +81,14 @@ updatePerson.validationScheme = {
         last_name: Joi.string().max(255),
         email: Joi.string().max(255),
         password: Joi.string().max(255),
+        tickets: Joi.optional(),
+        // tickets: Joi.array().items(Joi.number().integer().positive()),
     },
 };
 
 const deletePersonById = async (ctx) => {
     ctx.body = await personService.deleteById(Number(ctx.params.id));
-    ctx.status = 204;// todo check statuscode
+    ctx.status = 200;// todo check statuscode
 };
 deletePersonById.validationScheme = {
     params: {
@@ -110,7 +111,7 @@ const checkUserId = (ctx, next) => {
     if (id !== person_id && !roles.includes(Role.ADMIN)) {
         return ctx.throw(
             403,
-            "You are not allowed to view this user's information",
+            "You are not allowed to acces this user's information",
             {
                 code: 'FORBIDDEN',
             }
@@ -119,11 +120,7 @@ const checkUserId = (ctx, next) => {
     return next();
 };
 
-/**
- * Install person routes in the given router.
- *
- * @param {Router} app - The parent router.
- */
+
 module.exports = (app) => {
     const router = new Router({
         prefix: '/persons',

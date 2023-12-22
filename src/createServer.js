@@ -17,7 +17,6 @@ module.exports = async function createServer() {
       NODE_ENV,
     },
   });
-
   await initializeData();
 
   const app = new Koa();
@@ -33,6 +32,7 @@ module.exports = async function createServer() {
 
     start() {
       return new Promise((resolve) => {
+        console.log("port:",config.get('port'))
         const port = config.get('port');
         app.listen(port, () => {
           getLogger().info(`🚀 Server listening on http://localhost:${port}`);

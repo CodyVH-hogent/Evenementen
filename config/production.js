@@ -1,4 +1,5 @@
 module.exports = {
+  port: 9000,
   log: {
     level: 'info',
     disabled: false,
@@ -22,7 +23,7 @@ module.exports = {
     },
     jwt: {
       secret: 'eenveeltemoeilijksecretdatniemandooitzalradenandersisdesitegehacked',
-      expirationInterval: 60 * 60 * 1000*10,//10u
+      expirationInterval: 60 * 60 * 1000*1,//1u
       issuer: 'events.cody.be',
       audience: 'events.cody.be',
     },

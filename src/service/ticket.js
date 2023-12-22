@@ -1,8 +1,9 @@
-const prisma = require("../../prisma/prisma_init");
 const ServiceError = require('../core/serviceError');
 const handleDBError = require('./_handleDBError');
+const {getPrisma} = require("../../prisma");
 
 const getAll = async () => {
+    const prisma = getPrisma()
     const tickets = await prisma.ticket.findMany({});
     return {
         items: tickets,
@@ -11,6 +12,7 @@ const getAll = async () => {
 };
 
 const getById = async (id) => {
+    const prisma = getPrisma()
     const ticket = await prisma.ticket.findFirst({
         where: {
             id: id,
@@ -25,6 +27,7 @@ const getById = async (id) => {
 };
 
 const create = async ({ purchase_date,event_id }) => {
+    const prisma = getPrisma()
     try {
         const ticket = await prisma.ticket.create({
             data: {
@@ -39,6 +42,7 @@ const create = async ({ purchase_date,event_id }) => {
 };
 
 const updateById = async (id, { purchase_date, purchase_time }) => {
+    const prisma = getPrisma()
     try {
         await prisma.ticket.update({
             where: {
@@ -56,6 +60,7 @@ const updateById = async (id, { purchase_date, purchase_time }) => {
 };
 
 const deleteById = async (id) => {
+    const prisma = getPrisma()
     try {
         const deleted = await prisma.ticket.delete({
             where: {
@@ -72,6 +77,7 @@ const deleteById = async (id) => {
 };
 
 const deleteAll = async () => {
+    const prisma = getPrisma()
     try {
         await prisma.ticket.deleteMany({});
     } catch (error) {

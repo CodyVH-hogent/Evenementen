@@ -1,4 +1,5 @@
 module.exports = {
+    port: 9000,
     log: {
         level: 'silly',
         disabled: false,
@@ -11,9 +12,10 @@ module.exports = {
         client: 'mysql2',
         host: 'localhost',
         port: 3306,
-        name: 'tests',
-        username: 'prisma',
-        password: 'prisma',
+        name: 'events_test',
+        username: 'root',
+        password: 'root',
+        url: 'mysql://root:root@localhost:3306/'
     },
     auth: {
         argon: {
@@ -24,7 +26,7 @@ module.exports = {
         },
         jwt: {
             secret: 'eenveeltemoeilijksecretdatniemandooitzalradenandersisdesitegehacked',
-            expirationInterval: 60 * 60 * 1000*10,//10u
+            expirationInterval: 60 * 60 * 1000,//1u
             issuer: 'events.cody.be',
             audience: 'events.cody.be',
         },

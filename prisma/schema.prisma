@@ -13,8 +13,8 @@ model event {
   description String   @db.VarChar(255)
   end         DateTime @db.DateTime(0)
   start       DateTime @db.DateTime(0)
-  placeId     Int      @db.Int
-  place       place    @relation(fields: [placeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  place_id     Int      @db.Int
+  place       place    @relation(fields: [place_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   tickets     ticket[]
 }
 
