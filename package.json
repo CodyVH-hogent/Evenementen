@@ -2,7 +2,7 @@
   "name": "webservices-budget",
   "version": "1.0.0",
   "description": "Demo application for the course Web Services.",
-  "main": "src/createServer.js",
+  "main": "src/index.js",
   "repository": "git@github.com:HOGENT-Web/webservices-budget.git",
   "author": "Thomas Aelbrecht <thomasaelbrecht@live.com>",
   "license": "MIT",

@@ -10,4 +10,5 @@ module.exports = {
             secret: 'AUTH_JWT_SECRET',
         },
     },
+    port:"PORT"
 };
