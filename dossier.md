@@ -24,8 +24,13 @@
 
 ## Projectbeschrijving
 
-> Omschrijf hier duidelijk waarover jouw project gaat. Voeg een domeinmodel (of EERD) toe om jouw entiteiten te
-> verduidelijken.
+Het project is een rest-api die het mogelijk maakt om places, events, tickets en persons toe te
+voegen/wijzigen/verwijderen aan/uit een databank. Zie volgend schema voor meer verduidelijking.
+
+![img_6.png](images/erd.png)
+
+Je moet in staat zijn, via de juiste endpoints, al deze data aan te passen, weliswaar met de juiste permissies(zie
+verder).
 
 ## API calls
 
@@ -118,20 +123,20 @@
 ### Web Services
 
 > Hoe heb je jouw applicatie gestructureerd (mappen, design patterns...)?
-![img_2.png](img_2.png)
+![img_2.png](images/folder_structure_root.png)
 > Ik heb in het algemeen de structuur gevolgd die beschreven stond in de cursus, maar heb enkele zaken aangepast:
 
 - data
     - Ik heb ervoor gekozen geen data folder aan te maken en al deze logica aan de prisma folder bij te voegen
-    - ![img_3.png](img_3.png)
+    - ![img_3.png](images/folder_structure_prisma.png)
 - repository
     - Aangezien ik prisma heb gebruikt, was het niet verplicht om deze te gebruiken aangezien je de databank
       rechtstreeks aanspreekt met ingebouwde methodes van Prisma. En dat heb ik dus niet gedaan.
-    - ![img_4.png](img_4.png)
+    - ![img_4.png](images/folder_structure_src.png)
 - tests
     - Er is een extra folder `specs` waar alle individuele testen van de verschillende tabellen instaan.(momenteel enkel
       person 😢)
-    - ![img_5.png](img_5.png)
+    - ![img_5.png](images/folder_structure_tests.png)
 
 ## Extra technologie
 
@@ -152,19 +157,21 @@ toevoegen/verwijderen door gebruik te maken van de ingebouwde methodes.
 Ik heb enkel testen geschreven voor `person` aangezien ik het schrijven ervan duidelijk heb onderschat en te laat was
 begonnen dus.
 Mijn testen staan in de `root/__tests__/` folder met daarin de `global.setup` en `global.teardown` die alles opzetten en
-terug afbreken. `global.setup` zorgt ervoor dat er twee personen worden aangemaakt in de databank(admin en user) zodat deze later
+terug afbreken. `global.setup` zorgt ervoor dat er twee personen worden aangemaakt in de databank(admin en user) zodat
+deze later
 gebruikt kunnen worden om in te loggen via de `supertest.setup`. Dit laatste bestand wordt dus uitgevoerd voor er nog
 maar één test gedaan wordt en logt 2 gebruikers in zodat de tokens van beide worden opgehaald en gebruikt kunnen worden
 in de tests. Nadat alle tests uitgevoerd zijn runt de `global.teardown` om alle data van elke tabel te verwijderen en
 de connectie te stoppen.
 
 Ik test alle endpoints van person telkens met zowel admin als user om zoveel mogelijk edge cases te vermijden. De tests
-worden dan per endpoint zowel correct als incorrect uitgevoerd (bv. body{password,email}) en ook nog eens met extra parameters
+worden dan per endpoint zowel correct als incorrect uitgevoerd (bv. body{password,email}) en ook nog eens met extra
+parameters
 in de url.
 
-![img.png](img.png)
+![img.png](images/test_with_coverage.png)
 
-![img_1.png](img_1.png)
+![img_1.png](images/test_results.png)
 
 ## Gekende bugs
 
