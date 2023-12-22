@@ -1,10 +1,10 @@
 {
-  "name": "webservices-budget",
+  "name": "evenementen",
   "version": "1.0.0",
-  "description": "Demo application for the course Web Services.",
+  "description": "Own application for the course Web Services.",
   "main": "src/index.js",
-  "repository": "git@github.com:HOGENT-Web/webservices-budget.git",
-  "author": "Thomas Aelbrecht <thomasaelbrecht@live.com>",
+  "repository": "git@github.com:CodyVH-hogent/Evenementen.git",
+  "author": "Cody Van Hauermeiren",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -53,7 +53,7 @@
   },
   "engines": {
     "npm": ">=9.8.0",
-    "node": ">=20.6.0",
+    "node": "20.6.0",
     "yarn": ">=1.22.0"
   }
 }
