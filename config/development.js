@@ -9,12 +9,12 @@ module.exports = {
     maxAge: 3 * 60 * 60,
   },
   database: {
-    client: 'mysql2',
-    host: 'localhost',
-    port: 3306,
+    // client: 'mysql2',
+    // host: 'localhost',
+    // port: 3306,
     name: 'events',
-    username: 'root',
-    password: 'root',
+    // username: 'root',
+    // password: 'root',
     url: 'mysql://root:root@localhost:3306/'
   },
   auth: {

@@ -1,33 +1,38 @@
-# BudgetBackEnd
+# Examenopdracht Web Services
 
-This is the backend used in lessons Webservices.
+- Student: Cody Van Hauwermeiren
+- Studentennummer: 202293731
+- E-mailadres: <mailto:cody.vanhauwermeiren@student.hogent.be>
 
-## Requirements
+## Vereisten
+
+Ik verwacht dat volgende software reeds geïnstalleerd is:
 
 - [NodeJS v20.6 or higher](https://nodejs.org/)
 - [Yarn](https://yarnpkg.com/)
-- [MySQL v8](https://dev.mysql.com/downloads/windows/installer/8.0.html) (no Oracle account needed, click the tiny link below the grey box)
-- [MySQL Workbench](https://dev.mysql.com/downloads/workbench/) (no Oracle account needed, click the tiny link below the grey box)
+- [MySQL v8](https://dev.mysql.com/downloads/windows/installer/8.0.html)
+- [MySQL Workbench](https://dev.mysql.com/downloads/workbench/)
 
-For users of [Chocolatey](https://chocolatey.org/):
+## Opstarten
 
-```powershell
-choco install nodejs -y
-choco install yarn -y
-choco install mysql -y
-choco install mysql.workbench -y
+Maak een `.env` bestand aan met volgende informatie(verander uiteraard naar eigen credentials):
+
 ```
-
-## Before starting/testing this project
-
-Create a `.env` (development) file with the following template.
-
-```ini
 NODE_ENV=development
+DATABASE_URL="mysql://root:root@localhost:3306/events"
 ```
 
-## Start this project
+Voer vervolgens `yarn install` uit zodat alle packages kunnen geïnstalleerd worden.
+Wanneer dit gebeurt is kan je via `yarn start` de server opstarten
 
-- Install all dependencies: `yarn`
-- Make sure a `.env` exists (see above)
-- Start the development server: `yarn start`
+## Testen
+
+Maak een `.env.test` bestand aan met volgende informatie(verander uiteraard naar eigen credentials):
+
+```
+NODE_ENV=development
+DATABASE_URL="mysql://root:root@localhost:3306/events_test"
+```
+
+Voer vervolgens `yarn test` of `yarn test --coverage` om de test te runnen. Het eerste commando runt de testen gewoon,
+maar het tweede toont je ook welke lijntjes je nog moet testen bv.([jest-coverge-docs](https://jestjs.io/blog/2020/01/21/jest-25#v8-code-coverage)) 
