@@ -14,7 +14,7 @@ const requireAuthentication = async (ctx, next) => {
 };
 
 const makeRequireRole = (role) => async (ctx, next) => {
-  console.log(ctx.state.session)
+  // console.log(ctx.state.session)
   const { roles = [] } = ctx.state.session;
 
   personService.checkRole(role, roles);
